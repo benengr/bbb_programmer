@@ -8,8 +8,10 @@ class NotBootpPacketError(Exception):
     """Packet being decoded is not a BOOTP packet."""
 
 
+
 class BootpPacket(object):
     def __init__(self, pkt):
+        self.vendor_class = None
         # Check the ethernet type. It needs to be IP (0x800).
         if struct.unpack('!H', pkt[12:14])[0] != Constants.ETHERNET_IP_PROTO:
             raise NotBootpPacketError('Invalid Ethernet Protocol')
@@ -37,6 +39,9 @@ class BootpPacket(object):
         bootp_fmt = '!4xL20x6s10x64s128xL'
         bootp_size = struct.calcsize(bootp_fmt)
         (xid, mac, sname, cookie) = struct.unpack(bootp_fmt, pkt[:bootp_size])
+        vendor = pkt[bootp_size:]
+        self.process_vendor_specific(vendor)
+
 
         # We strip off the padding bytes
         try:
@@ -50,3 +55,20 @@ class BootpPacket(object):
             raise NotBootpPacketError()
 
         self.xid = xid
+
+    def process_vendor_specific(self, vendor):
+        index = 0
+        while index <= len(vendor):
+            tag = int(vendor[index])
+            index += 1
+            if tag == 0:
+                continue
+            if tag == 255:
+                return
+            l = int(vendor[index])
+            index += 1
+            v = vendor[index:index + l]
+            index += l
+            if tag == 60:
+                self.vendor_class = bytes.decode(v, 'utf-8')
+        return

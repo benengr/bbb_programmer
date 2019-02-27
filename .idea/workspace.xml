@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04e41289-72e5-4d70-9531-4a5878f29bd9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bootp/test_bootpPacket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bootp/BootpPacket.py" beforeDir="false" afterPath="$PROJECT_DIR$/bootp/BootpPacket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootp/test_bootpPacket.py" beforeDir="false" afterPath="$PROJECT_DIR$/bootp/test_bootpPacket.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,50 +22,60 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="2" />
+          <entry key="py" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="2" />
+          <entry key="Python" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="834" />
+          <entry key="py" value="1367" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="834" />
+          <entry key="Python" value="1367" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bootp/BootpPacket.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="21" column="38" lean-forward="true" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="56" />
+            <state relative-caret-position="516">
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1551303899028" expanded="true" signature="123:155" ph="..." />
+                <marker date="1551305763997" expanded="true" signature="123:155" ph="..." />
+                <marker date="1551305763997" expanded="true" signature="207:208" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bootp/test_bootpPacket.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+                <marker date="1551305791416" expanded="true" signature="168:173" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bootp/test_bootpPacket.py">
+        <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/unittest/case.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-                <marker date="1551303899019" expanded="true" signature="168:173" ph="..." />
-              </folding>
+            <state relative-caret-position="284">
+              <caret line="1253" selection-start-line="1253" selection-end-line="1253" />
             </state>
           </provider>
         </entry>
@@ -163,34 +174,34 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 32m 15s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 03m 10s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 32m 20s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 04m 15s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 33m 39s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 04m 49s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 37m 00s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 06m 42s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 37m 52s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 08m 44s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 39m 09s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 12m 10s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 40m 24s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 12m 33s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 41m 11s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 13m 00s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 42m 39s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 13m 19s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 16h 45m 03s.xml">
+    <history-entry file="Unittests_in_test_bootpPacket_py - 2019.02.27 at 17h 16m 07s.xml">
       <configuration name="Unittests in test_bootpPacket.py" configurationId="tests" />
     </history-entry>
   </component>
@@ -228,11 +239,23 @@
         <watch expression="ord('17')" language="Python" />
         <watch expression="sname" language="Python" />
         <watch expression="sname.index(b'\x00')" language="Python" />
+        <watch expression="len(vendor)" language="Python" />
+        <watch expression="vendor[index]" language="Python" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>vendor[index]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>len(vendor)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>sname.index(b'\x00')</expression-string>
         <language-id>Python</language-id>
@@ -276,24 +299,32 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bootp/test_bootpPacket.py">
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <marker date="1551303899019" expanded="true" signature="168:173" ph="..." />
-          </folding>
+        <state relative-caret-position="284">
+          <caret line="1253" selection-start-line="1253" selection-end-line="1253" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bootp/BootpPacket.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="21" column="38" lean-forward="true" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="56" />
+        <state relative-caret-position="516">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1551303899028" expanded="true" signature="123:155" ph="..." />
+            <marker date="1551305763997" expanded="true" signature="123:155" ph="..." />
+            <marker date="1551305763997" expanded="true" signature="207:208" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bootp/test_bootpPacket.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+            <marker date="1551305791416" expanded="true" signature="168:173" ph="..." />
           </folding>
         </state>
       </provider>
