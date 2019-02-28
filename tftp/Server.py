@@ -31,13 +31,10 @@ interval option from RFC2349.
 """
 
 import errno
-import logging
 import netifaces
 import os
-import socket
 import subprocess
 import stat
-import sys
 import threading
 import time
 
@@ -540,49 +537,3 @@ class Server(object):
                self.iface, self.ip, self.port, self.root)
         self.cleanup_thread.start()
         self.server.serve_forever()
-
-
-def main():
-    import optparse
-
-    usage = 'Usage: %prog [options] <iface> <TFTP root>'
-    parser = optparse.OptionParser(usage=usage)
-    parser.add_option('-r', '--rfc1350', dest='strict_rfc1350',
-                      action='store_true', default=False,
-                      help='Run in strict RFC1350 compliance mode, '
-                      'with no extensions')
-    parser.add_option('-p', '--port', dest='port', action='store', type='int',
-                      default=_PTFTPD_DEFAULT_PORT, metavar='PORT',
-                      help='Listen for TFTP requests on PORT')
-    parser.add_option('-v', '--verbose', dest='loglevel', action='store_const',
-                      const=logging.INFO, help='Output information messages',
-                      default=logging.WARNING)
-    parser.add_option('-D', '--debug', dest='loglevel', action='store_const',
-                      const=logging.DEBUG, help='Output debugging information')
-
-    (options, args) = parser.parse_args()
-    if len(args) != 2:
-        parser.print_help()
-        return 1
-
-    iface = args[0]
-    root = os.path.abspath(args[1])
-
-    # Setup notification logging
-    notify.StreamEngine.install(l, stream=sys.stdout,
-                                loglevel=options.loglevel,
-                                fmt='%(levelname)s(%(name)s): %(message)s')
-
-    try:
-        server = TFTPServer(iface, root, options.port, options.strict_rfc1350)
-        server.serve_forever()
-    except TFTPServerConfigurationError as e:
-        sys.stderr.write('TFTP server configuration error: %s!' % e.args)
-        return 1
-    except socket.error as e:
-        sys.stderr.write('Error creating a listening socket on port %d: '
-                         '%s (%s).\n' % (options.port, e.args[1],
-                                         errno.errorcode[e.args[0]]))
-        return 1
-
-    return 0
