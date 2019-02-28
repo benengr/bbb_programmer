@@ -53,7 +53,7 @@ class StaticServer(BaseServer):
 
 
 def main():
-    server = StaticServer(address='192.168.0.214', port=1069, retries=3, timeout=5,
+    server = StaticServer(address='192.168.0.55', port=69, retries=3, timeout=5,
                           root='/var/tftproot', handler_stats_callback=print_session_stats,
                           server_stats_callback=print_server_stats)
     try:
