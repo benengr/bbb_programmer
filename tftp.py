@@ -1,6 +1,10 @@
 from TFTPServer import TFTPServer
 import socketserver
+import logging
 
-
-server = socketserver.UDPServer(('0.0.0.0', 1234), TFTPServer)
+logging.basicConfig(level=logging.DEBUG)
+print('creating server')
+server = socketserver.UDPServer(('localhost', 4234), TFTPServer)
+print('serving')
 server.serve_forever()
+print('closing')
