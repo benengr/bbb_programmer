@@ -508,7 +508,7 @@ class TFTPServerGarbageCollector(threading.Thread):
 
 class Server(object):
     def __init__(self, iface, root, port=_PTFTPD_DEFAULT_PORT,
-                 strict_rfc1350=False, notification_callbacks=None):
+                 strict_rfc1350=True, notification_callbacks=True):
 
         if notification_callbacks is None:
             notification_callbacks = {}
