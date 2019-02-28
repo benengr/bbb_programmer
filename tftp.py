@@ -1,4 +1,6 @@
-from tftp.Server import Server
+from TFTPServer import TFTPServer
+import socketserver
 
-server = Server('0.0.0.0', '/var/tftproot')
+
+server = socketserver.UDPServer(('0.0.0.0', 1234), TFTPServer)
 server.serve_forever()
