@@ -95,6 +95,8 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
         if not opcode:
             l.error('Can\'t find packet opcode, packet ignored')
             return
+        else:
+            l.debug('processing opcode: %d', opcode)
 
         if opcode not in proto.TFTP_OPS:
             l.error('Unknown operation %d', opcode)
