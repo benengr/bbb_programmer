@@ -107,8 +107,8 @@ TFTP_ERRORS = {
 
 # TFTP transfer modes (mail is deprecated as of RFC1350)
 TFTP_MODES = set(['netascii', 'octet'])
-NETASCII_TO_OCTET = re.compile('\r\n')
-OCTET_TO_NETASCII = re.compile('\r?\n')
+NETASCII_TO_OCTET = re.compile(b'\r\n')
+OCTET_TO_NETASCII = re.compile(b'\r?\n')
 
 # TFTP option names, as defined in RFC2348, RFC2349 and RFC7440
 TFTP_OPTION_BLKSIZE = 'blksize'
