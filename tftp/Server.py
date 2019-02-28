@@ -111,6 +111,7 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
                     proto.ERROR_UNDEF,
                     'Operation not supported by server.')
         except:
+            l.exception('Server Error.')
             response = proto.TFTPHelper.createERROR(
                     proto.ERROR_UNDEF,
                     'Server error.')
@@ -178,8 +179,7 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
             peer_state.state = state.STATE_SEND
 
             l.info('Serving file %s to host %s...',
-                   filename, self.client_address[0],
-                   extra=peer_state.extra(notify.TRANSFER_STARTED))
+                   filename, self.client_address[0])
 
             # Only set options if not running in RFC1350 compliance mode
             # and when option were received.
@@ -221,6 +221,8 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
                 peer_state.error = proto.ERROR_UNDEF
                 l.error('Unknown error while accessing file %s', filename,
                         extra=peer_state.extra(notify.TRANSFER_FAILED))
+        except Exception as e:
+            l.exception('Error occurred', e)
 
         return self.finish_state(peer_state)
 
@@ -508,7 +510,7 @@ class TFTPServerGarbageCollector(threading.Thread):
 
 class Server(object):
     def __init__(self, iface, root, port=_PTFTPD_DEFAULT_PORT,
-                 strict_rfc1350=True, notification_callbacks=True):
+                 strict_rfc1350=True, notification_callbacks=None):
 
         if notification_callbacks is None:
             notification_callbacks = {}
