@@ -3,6 +3,7 @@ import socket
 import sys
 import logging
 import random
+import netifaces
 from bootp import Constants
 from bootp.BootpPacket import BootpPacket, NotBootpPacketError
 
@@ -15,6 +16,11 @@ logger = logging.getLogger('bootpd')
 
 class UninterestingBootpPacket(Exception):
     """Packet is BOOTP, but we just don't care about it."""
+
+
+class BootpServerConfigurationError(Exception):
+    """The configuration of the pTFTPd is incorrect."""
+    pass
 
 
 def compute_checksum(message):
@@ -55,7 +61,7 @@ def get_ip_config_for_iface(iface):
 
     import fcntl
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    ifname = struct.pack('256s', iface[:15])
+    ifname = struct.pack('256s', bytes(iface[:15], 'utf-8'))
     ip = fcntl.ioctl(s.fileno(), SIOCGIFADDR, ifname)
     mask = fcntl.ioctl(s.fileno(), SIOCGIFNETMASK, ifname)
     mac = fcntl.ioctl(s.fileno(), SIOCGIFHWADDR, ifname)
