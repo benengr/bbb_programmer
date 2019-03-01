@@ -106,6 +106,7 @@ class BOOTPServer(object):
                 pkt = BootpPacket(data)
                 logger.info("Receipt bootp request from: %s", pkt.vendor_class)
                 self.handle_bootp_request(pkt)
+                logger.debug("Boot request handled")
 
             except (NotBootpPacketError, UninterestingBootpPacket):
                 continue
@@ -152,7 +153,7 @@ class BOOTPServer(object):
                             0x2, 0x1, 0x6, request_pkt.xid, 0x8000,
                             _pack_ip(client_ip), _pack_ip(self.tftp_server),
                             request_pkt.client_mac, self.hostname,
-                            filename, Constants.BOOTP_MAGIC_COOKIE)
+                            bytes(filename, 'utf-8'), Constants.BOOTP_MAGIC_COOKIE)
 
         bootp_options = (
             (Constants.BOOTP_OPTION_SUBNET, _pack_ip(self.netmask)),
@@ -197,6 +198,8 @@ class BOOTPServer(object):
                             Constants.ETHERNET_IP_PROTO) + reply
 
         # And here is our BOOTP packet
+        logging.debug("Encoded reply is:")
+        logging.debug(reply)
         return reply
 
     def generate_free_ip(self):
