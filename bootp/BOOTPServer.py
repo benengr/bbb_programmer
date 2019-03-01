@@ -133,6 +133,10 @@ class BOOTPServer(object):
             return 'default_image'
 
     def encode_bootp_reply(self, request_pkt, client_ip, filename):
+        logging.info('types:')
+        logging.info(type(request_pkt.client_mac))
+        logging.info(type(self.hostname))
+        logging.info(type(filename))
         # Basic BOOTP reply
         reply = struct.pack('!B'    # The op (0x2)
                             'B'     # The htype (Ethernet -> 0x1)
