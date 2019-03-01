@@ -237,7 +237,7 @@ class TFTPState(object):
     def __next_recv(self):
         # Convert CRLF to LF if needed
         if self.mode == 'netascii':
-            self.data = proto.NETASCII_TO_OCTET.sub('\n', self.data)
+            self.data = proto.NETASCII_TO_OCTET.sub(b'\n', self.data)
 
         data_len = len(self.data)
         if data_len < self.opts[proto.TFTP_OPTION_BLKSIZE]:
