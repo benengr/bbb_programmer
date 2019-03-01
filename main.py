@@ -19,7 +19,7 @@ def start_bootp():
             pass
 
 
-def start_tftp(iface, root, port):
+def start_tftp():
     iface = 'usb0'
     root = '/var/tftproot'
     port = 69
