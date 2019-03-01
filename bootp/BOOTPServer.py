@@ -98,8 +98,9 @@ class BOOTPServer(object):
             data = self.sock.recv(4096)
             try:
                 pkt = BootpPacket(data)
-                # self.handle_bootp_request(pkt)
-                print('received bootp request from {}'.format(pkt.vendor_class))
+                logger.info("Receipt bootp request from: %s", pkt.vendor_class)
+                self.handle_bootp_request(pkt)
+
             except (NotBootpPacketError, UninterestingBootpPacket):
                 continue
 
@@ -110,12 +111,21 @@ class BOOTPServer(object):
             raise UninterestingBootpPacket()
 
         ip = self.generate_free_ip()
+        filename = self.get_filename(pkt.vendor_class)
         logger.info('Offering to boot client %s' % ip)
-        logger.info('Booting client %s with file %s' % (ip, self.bootfile))
+        logger.info('Booting client %s with file %s' % (ip, filename))
 
-        self.sock.send(self.encode_bootp_reply(pkt, ip))
+        self.sock.send(self.encode_bootp_reply(pkt, ip, filename))
 
-    def encode_bootp_reply(self, request_pkt, client_ip):
+    def get_filename(self, vendor_class):
+        if vendor_class == "AM335x ROM":
+            return "spl_image"
+        elif vendor_class == "AM33":
+            return 'uboot_image'
+        else:
+            return 'default_image'
+
+    def encode_bootp_reply(self, request_pkt, client_ip, filename):
         # Basic BOOTP reply
         reply = struct.pack('!B'    # The op (0x2)
                             'B'     # The htype (Ethernet -> 0x1)
@@ -136,7 +146,7 @@ class BOOTPServer(object):
                             0x2, 0x1, 0x6, request_pkt.xid, 0x8000,
                             _pack_ip(client_ip), _pack_ip(self.tftp_server),
                             request_pkt.client_mac, self.hostname,
-                            self.bootfile, Constants.BOOTP_MAGIC_COOKIE)
+                            filename, Constants.BOOTP_MAGIC_COOKIE)
 
         bootp_options = (
             (Constants.BOOTP_OPTION_SUBNET, _pack_ip(self.netmask)),
