@@ -275,7 +275,7 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
             if e.errno == errno.ENOENT:
                 try:
                     peer_state.file = open(peer_state.filepath, 'wb')
-                    peer_state.packetnum = 0
+                    peer_state.packetnum = 1
                     peer_state.state = state.STATE_RECV_ACK
                     l.info('Upload of %s began.', filename,
                            extra=peer_state.extra(notify.TRANSFER_STARTED))
@@ -304,6 +304,8 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
                 peer_state.state = state.STATE_ERROR
                 peer_state.error = proto.ERROR_OPTION_NEGOCIATION
 
+        l.info('finish serverWRQ with the following peer state')
+        l.info(peer_state)
         return self.finish_state(peer_state)
 
     def serveACK(self, op, request):
@@ -416,6 +418,7 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
             return proto.TFTPHelper.createERROR(proto.ERROR_ILLEGAL_OP)
 
         if peer_state.state == state.STATE_RECV:
+            l.info("Serving data.  Expected packet num %d, actual packet num %d", peer_state.packetnum, num)
             if num != peer_state.packetnum:
                 peer_state.state = state.STATE_ERROR
                 peer_state.error = proto.ERROR_ILLEGAL_OP
