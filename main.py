@@ -20,6 +20,9 @@ def start_bootp():
 
 
 def start_tftp(iface, root, port):
+    iface = 'usb0'
+    root = '/var/tftproot'
+    port = 69
     server = Server(iface, root, port)
     server.serve_forever()
 
