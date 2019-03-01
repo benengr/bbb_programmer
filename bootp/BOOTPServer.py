@@ -99,7 +99,7 @@ class BOOTPServer(object):
             try:
                 pkt = BootpPacket(data)
                 # self.handle_bootp_request(pkt)
-                print('received bootp request from {}'.format(pkt.sname))
+                print('received bootp request from {}'.format(pkt.vendor_class))
             except (NotBootpPacketError, UninterestingBootpPacket):
                 continue
 
