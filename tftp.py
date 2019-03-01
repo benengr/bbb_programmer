@@ -3,7 +3,7 @@ import logging
 
 
 def run_server():
-    iface = '127.0.0.1'
+    iface = '0.0.0.0'
     root = '/Users/benanderson/tftp'
     port = 4234
 

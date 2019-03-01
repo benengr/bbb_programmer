@@ -20,7 +20,7 @@ def start_bootp():
 
 
 def start_tftp():
-    iface = 'usb0'
+    iface = '0.0.0.0'
     root = '/var/tftproot'
     port = 69
     log = logging.getLogger('tftpthread')

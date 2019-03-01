@@ -8,7 +8,6 @@ class NotBootpPacketError(Exception):
     """Packet being decoded is not a BOOTP packet."""
 
 
-
 class BootpPacket(object):
     def __init__(self, pkt):
         self.vendor_class = None
@@ -41,7 +40,6 @@ class BootpPacket(object):
         (xid, mac, sname, cookie) = struct.unpack(bootp_fmt, pkt[:bootp_size])
         vendor = pkt[bootp_size:]
         self.process_vendor_specific(vendor)
-
 
         # We strip off the padding bytes
         try:
