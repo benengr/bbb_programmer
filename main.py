@@ -1,2 +1,50 @@
-import fbtftp
+import threading
+import logging
+from bootp.BOOTPServer import BOOTPServer
+from tftp.Server import Server
 
+
+def start_bootp():
+    log = logging.getLogger('bootpthread')
+    server = BOOTPServer('usb0', None, '192.168.4.1', '192.168.4.1')
+    done = False
+    while not done:
+        try:
+            log.info("Starting server")
+            server.serve_forever()
+        except KeyboardInterrupt:
+            done = True
+        except Exception as ex:
+            log.info("Restarting Server")
+            pass
+
+
+def start_tftp():
+    iface = 'usb0'
+    root = '/var/tftproot'
+    port = 69
+    log = logging.getLogger('tftpthread')
+    done = False
+    while not done:
+        try:
+            log.info("Starting server on %s:%d with root %s" % (iface, port, root))
+            server = Server(iface, root, port)
+            server.serve_forever()
+        except Exception as ex:
+            log.exception(ex)
+        pass
+    pass
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
+    bootp_thread = threading.Thread(target=start_bootp)
+    tftp_thread = threading.Thread(target=start_tftp)
+    logging.info("Starting bootp thread")
+    bootp_thread.start()
+    logging.info("Starting tftp thread")
+    tftp_thread.start()
+    logging.info("Joining threads")
+    bootp_thread.join()
+    tftp_thread.join()
+    logging.info("Exiting")

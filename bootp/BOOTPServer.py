@@ -3,6 +3,7 @@ import socket
 import sys
 import logging
 import random
+import netifaces
 from bootp import Constants
 from bootp.BootpPacket import BootpPacket, NotBootpPacketError
 
@@ -15,6 +16,11 @@ logger = logging.getLogger('bootpd')
 
 class UninterestingBootpPacket(Exception):
     """Packet is BOOTP, but we just don't care about it."""
+
+
+class BootpServerConfigurationError(Exception):
+    """The configuration of the pTFTPd is incorrect."""
+    pass
 
 
 def compute_checksum(message):
@@ -55,7 +61,7 @@ def get_ip_config_for_iface(iface):
 
     import fcntl
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    ifname = struct.pack('256s', iface[:15])
+    ifname = struct.pack('256s', bytes(iface[:15], 'utf-8'))
     ip = fcntl.ioctl(s.fileno(), SIOCGIFADDR, ifname)
     mask = fcntl.ioctl(s.fileno(), SIOCGIFNETMASK, ifname)
     mac = fcntl.ioctl(s.fileno(), SIOCGIFHWADDR, ifname)
@@ -82,7 +88,7 @@ def _pack_mac(mac_addr):
 class BOOTPServer(object):
     def __init__(self, interface, bootfile, router=None, tftp_server=None):
         self.interface = interface
-        # self.ip, self.netmask, self.mac = get_ip_config_for_iface(interface)
+        self.ip, self.netmask, self.mac = get_ip_config_for_iface(interface)
         self.hostname = socket.gethostname()
         self.bootfile = bootfile
         self.router = router or self.ip
@@ -98,8 +104,10 @@ class BOOTPServer(object):
             data = self.sock.recv(4096)
             try:
                 pkt = BootpPacket(data)
-                # self.handle_bootp_request(pkt)
-                print('received bootp request from {}'.format(pkt.sname))
+                logger.info("Receipt bootp request from: %s", pkt.vendor_class)
+                self.handle_bootp_request(pkt)
+                logger.debug("Boot request handled")
+
             except (NotBootpPacketError, UninterestingBootpPacket):
                 continue
 
@@ -110,12 +118,21 @@ class BOOTPServer(object):
             raise UninterestingBootpPacket()
 
         ip = self.generate_free_ip()
+        filename = self.get_filename(pkt.vendor_class)
         logger.info('Offering to boot client %s' % ip)
-        logger.info('Booting client %s with file %s' % (ip, self.bootfile))
+        logger.info('Booting client %s with file %s' % (ip, filename))
 
-        self.sock.send(self.encode_bootp_reply(pkt, ip))
+        self.sock.send(self.encode_bootp_reply(pkt, ip, filename))
 
-    def encode_bootp_reply(self, request_pkt, client_ip):
+    def get_filename(self, vendor_class):
+        if vendor_class == "AM335x ROM":
+            return "u-boot-spl-restore.bin"
+        elif vendor_class == "AM33":
+            return 'u-boot-restore.bin'
+        else:
+            return 'default_image'
+
+    def encode_bootp_reply(self, request_pkt, client_ip, filename):
         # Basic BOOTP reply
         reply = struct.pack('!B'    # The op (0x2)
                             'B'     # The htype (Ethernet -> 0x1)
@@ -135,19 +152,19 @@ class BOOTPServer(object):
                             'L',    # Magic cookie
                             0x2, 0x1, 0x6, request_pkt.xid, 0x8000,
                             _pack_ip(client_ip), _pack_ip(self.tftp_server),
-                            request_pkt.client_mac, self.hostname,
-                            self.bootfile, Constants.BOOTP_MAGIC_COOKIE)
+                            request_pkt.client_mac, bytes(self.hostname, 'utf-8'),
+                            bytes(filename, 'utf-8'), Constants.BOOTP_MAGIC_COOKIE)
 
         bootp_options = (
             (Constants.BOOTP_OPTION_SUBNET, _pack_ip(self.netmask)),
             (Constants.BOOTP_OPTION_GATEWAY, _pack_ip(self.router)),
             )
 
-        options = ''
+        options = b''
         for option, data in bootp_options:
             options += struct.pack('!BB', option, len(data))
             options += data
-        reply += options + str(struct.pack('!B', 0xff))
+        reply += options + struct.pack('!B', 0xff)
 
         # We add the padding bytes to fit the full size of a BOOTP packet
         if len(reply) < Constants.BOOTP_PACKET_SIZE:
@@ -181,6 +198,8 @@ class BOOTPServer(object):
                             Constants.ETHERNET_IP_PROTO) + reply
 
         # And here is our BOOTP packet
+        logging.debug("Encoded reply is:")
+        logging.debug(reply)
         return reply
 
     def generate_free_ip(self):
