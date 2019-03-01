@@ -156,7 +156,7 @@ class BOOTPServer(object):
                             'L',    # Magic cookie
                             0x2, 0x1, 0x6, request_pkt.xid, 0x8000,
                             _pack_ip(client_ip), _pack_ip(self.tftp_server),
-                            request_pkt.client_mac, self.hostname,
+                            request_pkt.client_mac, bytes(self.hostname, 'utf-8'),
                             bytes(filename, 'utf-8'), Constants.BOOTP_MAGIC_COOKIE)
 
         bootp_options = (
