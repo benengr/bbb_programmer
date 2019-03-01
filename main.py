@@ -25,6 +25,7 @@ def start_tftp(iface, root, port):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     bootp_thread = threading.Thread(target=start_bootp)
     tftp_thread = threading.Thread(target=start_tftp)
     logging.info("Starting bootp thread")
