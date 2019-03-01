@@ -82,7 +82,7 @@ def _pack_mac(mac_addr):
 class BOOTPServer(object):
     def __init__(self, interface, bootfile, router=None, tftp_server=None):
         self.interface = interface
-        # self.ip, self.netmask, self.mac = get_ip_config_for_iface(interface)
+        self.ip, self.netmask, self.mac = get_ip_config_for_iface(interface)
         self.hostname = socket.gethostname()
         self.bootfile = bootfile
         self.router = router or self.ip
