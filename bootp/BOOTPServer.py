@@ -160,11 +160,11 @@ class BOOTPServer(object):
             (Constants.BOOTP_OPTION_GATEWAY, _pack_ip(self.router)),
             )
 
-        options = ''
+        options = b''
         for option, data in bootp_options:
-            options += struct.pack('!BB', option.decode('utf-8'), len(data))
+            options += struct.pack('!BB', option, len(data))
             options += data
-        reply += options + str(struct.pack('!B', 0xff))
+        reply += options + struct.pack('!B', 0xff)
 
         # We add the padding bytes to fit the full size of a BOOTP packet
         if len(reply) < Constants.BOOTP_PACKET_SIZE:
