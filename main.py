@@ -23,8 +23,17 @@ def start_tftp(iface, root, port):
     iface = 'usb0'
     root = '/var/tftproot'
     port = 69
-    server = Server(iface, root, port)
-    server.serve_forever()
+    log = logging.getLogger('tftpthread')
+    done = False
+    while not done:
+        try:
+            log.info("Starting server on %s:%d with root %s" % (iface, port, root))
+            server = Server(iface, root, port)
+            server.serve_forever()
+        except Exception as ex:
+            log.exception(ex)
+        pass
+    pass
 
 
 if __name__ == "__main__":
