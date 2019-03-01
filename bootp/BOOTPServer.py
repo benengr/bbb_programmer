@@ -126,9 +126,9 @@ class BOOTPServer(object):
 
     def get_filename(self, vendor_class):
         if vendor_class == "AM335x ROM":
-            return "spl_image"
+            return "u-boot-spl-restore.bin"
         elif vendor_class == "AM33":
-            return 'uboot_image'
+            return 'u-boot-restore.bin'
         else:
             return 'default_image'
 
