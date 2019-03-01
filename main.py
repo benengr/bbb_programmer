@@ -37,15 +37,13 @@ def start_tftp(iface, root, port):
 
 
 if __name__ == "__main__":
-    print("starting")
     logging.basicConfig(level=logging.DEBUG)
     bootp_thread = threading.Thread(target=start_bootp)
     tftp_thread = threading.Thread(target=start_tftp)
-    print("starting bootp trhread")
     logging.info("Starting bootp thread")
-    bootp_thread.run()
+    bootp_thread.start()
     logging.info("Starting tftp thread")
-    tftp_thread.run()
+    tftp_thread.start()
     logging.info("Joining threads")
     bootp_thread.join()
     tftp_thread.join()
