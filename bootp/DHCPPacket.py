@@ -13,28 +13,6 @@ class UninterestingDhcpPacket(Exception):
     """Packet is DHCP, but not of interest to us."""
 
 
-# The DHCP magic cookie value that precedes option fields.
-DHCP_MAGIC_COOKIE = 0x63825363
-# DHCP operation types. There are others, but we don't care.
-DHCP_OP_DHCPDISCOVER = 1
-DHCP_OP_DHCPOFFER = 2
-DHCP_OP_DHCPREQUEST = 3
-DHCP_OP_DHCPACK = 5
-
-# DHCP options we care about.
-DHCP_OPTION_SUBNET = 1                # Subnet mask
-DHCP_OPTION_ROUTER = 3                # Router
-DHCP_OPTION_DNS = 6                   # Domain Name Servers (DNS)
-DHCP_OPTION_REQUESTED_IP = 50         # Requested IP address
-DHCP_OPTION_LEASE_TIME = 51           # Lease time for the IP address
-DHCP_OPTION_OP = 53                   # The DHCP operation (see above)
-DHCP_OPTION_SERVER_ID = 54            # Server Identifier (IP address)
-DHCP_OPTION_VENDOR_CLASS_ID = 60      # The vendor class identifier, used
-                                      # to identify PXE clients
-DHCP_OPTION_CLIENT_UUID = 61          # The client machine UUID
-DHCP_OPTION_PXE_VENDOR = 43           # PXE vendor extensions
-DHCP_OPTION_CLIENT_UUID2 = 97         # The client machine UUID
-
 # Client UUID length. Some PXE clients use UUID2 to provide the client machine
 # MAC address, resulting in invalid UUID parsing. We ensure we're dealing with
 # client UUID by checking their length (16 bytes).
@@ -105,7 +83,7 @@ class DhcpPacket(object):
         dhcp_size = struct.calcsize(dhcp_fmt)
         (xid, mac, cookie) = struct.unpack(dhcp_fmt, pkt[:dhcp_size])
 
-        if cookie != DHCP_MAGIC_COOKIE or self.client_mac != mac:
+        if cookie != Constants.DHCP_MAGIC_COOKIE or self.client_mac != mac:
             raise NotDhcpPacketError("Invalid magic cookie")
 
         self.xid = xid
@@ -120,19 +98,19 @@ class DhcpPacket(object):
         self.requested_ip = None
 
         for option, value in _dhcp_options(options):
-            if option == DHCP_OPTION_OP:
+            if option == Constants.DHCP_OPTION_OP:
                 self.op = ord(value)
                 # We only care about interesting "incoming" DHCP ops.
-                if self.op not in (DHCP_OP_DHCPDISCOVER, DHCP_OP_DHCPREQUEST):
+                if self.op not in (Constants.DHCP_OP_DHCPDISCOVER, Constants.DHCP_OP_DHCPREQUEST):
                     raise UninterestingDhcpPacket()
-            elif (option in (DHCP_OPTION_CLIENT_UUID,
-                             DHCP_OPTION_CLIENT_UUID2) and
+            elif (option in (Constants.DHCP_OPTION_CLIENT_UUID,
+                             Constants.DHCP_OPTION_CLIENT_UUID2) and
                   len(value[1:]) == DHCP_CLIENT_UUID_LENGTH):
                 # First byte of the UUID is \0
                 self.uuid = _unpack_uuid(value[1:])
-            elif option == DHCP_OPTION_VENDOR_CLASS_ID:
+            elif option == Constants.DHCP_OPTION_VENDOR_CLASS_ID:
                 self.vendor_class = value.decode('utf-8')
-            elif option == DHCP_OPTION_REQUESTED_IP:
+            elif option == Constants.DHCP_OPTION_REQUESTED_IP:
                 self.requested_ip = _unpack_ip(value)
             else:
                 # Keep them around, in case other code feels like
