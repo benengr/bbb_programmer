@@ -128,7 +128,7 @@ class BOOTPServer(object):
         if vendor_class == "AM335x ROM":
             return "u-boot-spl-restore.bin"
         elif vendor_class == "AM335x U-Boot SPL":
-            return 'u-boot-restore.bin'
+            return 'u-boot-restore.img'
         else:
             return 'default_image'
 
