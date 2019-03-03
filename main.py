@@ -22,6 +22,9 @@ def wait_for_interface(iface, poll_time, logger):
                 logger.error("Could not get an address for %s", iface)
                 logger.exception(error)
                 pass
+            except KeyError as error:
+                logger.error("KeyError while getting address for %s", iface)
+                logger.exception(error)
         time.sleep(poll_time)
 
 
