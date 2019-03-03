@@ -60,6 +60,7 @@ if __name__ == "__main__":
                 tftp_thread.start()
             log.info("Waiting for threads to complete")
             bootp_thread.join()
+            bootp_thread = None
     except Exception as ex:
         log.error("unhandled exception occurred")
         log.exception(ex)
