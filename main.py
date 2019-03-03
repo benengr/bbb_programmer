@@ -39,21 +39,24 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     log = logging.getLogger('main')
     log.info("System Started")
+    bootp_thread = None
+    tftp_thread = None
     try:
         while True:
             address = wait_for_interface(IFACE, 1, log)
             print(address)
             thread_args = (address,)
             logging.info("found interface with ip: %s", address)
-            bootp_thread = threading.Thread(target=start_bootp, args=thread_args)
-            tftp_thread = threading.Thread(target=start_tftp, args=thread_args)
-            log.info("Starting bootp thread")
-            bootp_thread.start()
-            log.info("Starting tftp thread")
-            tftp_thread.start()
+            if bootp_thread is None:
+                bootp_thread = threading.Thread(target=start_bootp, args=thread_args)
+                log.info("Starting bootp thread")
+                bootp_thread.start()
+            if tftp_thread is None:
+                tftp_thread = threading.Thread(target=start_tftp, args=thread_args)
+                log.info("Starting tftp thread")
+                tftp_thread.start()
             log.info("Waiting for threads to complete")
             bootp_thread.join()
-            tftp_thread.join()
     except Exception as ex:
         log.error("unhandled exception occurred")
         log.exception(ex)
