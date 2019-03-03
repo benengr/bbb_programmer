@@ -49,20 +49,9 @@ except ImportError:
 
 l = notify.getLogger('tftpd')
 
-_PTFTPD_SERVER_NAME = 'pFTPd'
+_PTFTPD_SERVER_NAME = 'bbbTftp'
 _PTFTPD_DEFAULT_PORT = 69
 _PTFTPD_DEFAULT_PATH = '/tftpboot'
-
-
-def get_ip_config_for_iface(iface):
-    """Retrieve and return the IP address/netmask of the given interface."""
-    if iface not in netifaces.interfaces():
-        raise TFTPServerConfigurationError(
-                'Unknown network interface {}'.format(iface))
-
-    details = netifaces.ifaddresses(iface)
-    inet = details[netifaces.AF_INET][0]
-    return inet['addr'], inet['netmask']
 
 
 def get_max_udp_datagram_size():
@@ -104,6 +93,7 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
             self.send_response(response)
             return
 
+        response = None
         try:
             handler = getattr(self, 'serve' + proto.TFTP_OPS[opcode])
             response = handler(opcode, request[2:])
@@ -418,7 +408,7 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
             return proto.TFTPHelper.createERROR(proto.ERROR_ILLEGAL_OP)
 
         if peer_state.state == state.STATE_RECV:
-            l.info("Serving data.  Expected packet num %d, actual packet num %d", peer_state.packetnum, num)
+            l.debug("Serving data.  Expected packet num %d, actual packet num %d", peer_state.packetnum, num)
             if num != peer_state.packetnum:
                 peer_state.state = state.STATE_ERROR
                 peer_state.error = proto.ERROR_ILLEGAL_OP
@@ -514,21 +504,19 @@ class TFTPServerGarbageCollector(threading.Thread):
 
 
 class Server(object):
-    def __init__(self, iface, root, port=_PTFTPD_DEFAULT_PORT,
+    def __init__(self, ip, root, port=_PTFTPD_DEFAULT_PORT,
                  strict_rfc1350=True, notification_callbacks=None):
 
         if notification_callbacks is None:
             notification_callbacks = {}
 
-        self.iface, self.root, self.port, self.strict_rfc1350 = \
-            iface, root, port, strict_rfc1350
+        self.ip, self.root, self.port, self.strict_rfc1350 = ip, root, port, strict_rfc1350
         self.client_registry = {}
 
         if not os.path.isdir(self.root):
             raise TFTPServerConfigurationError(
                 'The specified TFTP root does not exist')
 
-        self.ip, self.netmask = get_ip_config_for_iface(self.iface)
         self.server = socketserver.UDPServer((self.ip, port),
                                              TFTPServerHandler)
         self.server.root = self.root
@@ -540,7 +528,7 @@ class Server(object):
         notify.CallbackEngine.install(l, notification_callbacks)
 
     def serve_forever(self):
-        l.info('Serving TFTP requests on %s/%s:%d in %s',
-               self.iface, self.ip, self.port, self.root)
+        l.info('Serving TFTP requests on %s:%d in %s',
+               self.ip, self.port, self.root)
         self.cleanup_thread.start()
         self.server.serve_forever()

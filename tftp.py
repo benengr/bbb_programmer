@@ -3,9 +3,9 @@ import logging
 
 
 def run_server():
-    iface = 'lo0'
-    root = '/Users/benanderson/tftp'
-    port = 4234
+    iface = '0.0.0.0'
+    root = '/var/tftproot'
+    port = 69 
 
     server = Server(iface, root, port)
     server.serve_forever()
