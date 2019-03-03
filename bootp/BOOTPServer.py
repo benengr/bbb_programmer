@@ -130,7 +130,7 @@ class BOOTPServer(object):
         elif vendor_class == "AM335x U-Boot SPL":
             return 'u-boot-restore.img'
         else:
-            return 'default_image'
+            return 'zImage'
 
     def encode_bootp_reply(self, request_pkt, client_ip, filename):
         # Basic BOOTP reply
