@@ -408,7 +408,7 @@ class TFTPServerHandler(socketserver.DatagramRequestHandler):
             return proto.TFTPHelper.createERROR(proto.ERROR_ILLEGAL_OP)
 
         if peer_state.state == state.STATE_RECV:
-            l.info("Serving data.  Expected packet num %d, actual packet num %d", peer_state.packetnum, num)
+            l.debug("Serving data.  Expected packet num %d, actual packet num %d", peer_state.packetnum, num)
             if num != peer_state.packetnum:
                 peer_state.state = state.STATE_ERROR
                 peer_state.error = proto.ERROR_ILLEGAL_OP
