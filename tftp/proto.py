@@ -43,7 +43,7 @@ _LOG_PROTO = False
 
 # TFTP data packet size. A data packet with a length less than this
 # size is considered as being the last packet of the transmission.
-TFTP_DEFAULT_PACKET_SIZE = 4096
+TFTP_DEFAULT_PACKET_SIZE = 512 
 
 # Enhanced data packet size for LAN networks
 TFTP_LAN_PACKET_SIZE = 1400
