@@ -96,6 +96,9 @@ class DhcpPacket(object):
         self.unknown_options = []
         self.is_pxe_request = False
         self.requested_ip = None
+        # BOOTP Requests do no have the DCHP_OPTION_OP, so assume it's
+        # Discover unless otherwise stated.
+        self.op = Constants.DHCP_OP_DHCPDISCOVER
 
         for option, value in _dhcp_options(options):
             if option == Constants.DHCP_OPTION_OP:
