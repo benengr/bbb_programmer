@@ -209,6 +209,7 @@ class DHCPServer(object):
             buf.append(struct.pack('!BB', code, len(data)))
             buf.append(data)
         reply += b''.join(buf)
+        reply += bytes([0xFF])
 
         # Construct the UDP datagram. We don't checksum, for
         # simplicity. UDP conformant clients should not care anyway, we
