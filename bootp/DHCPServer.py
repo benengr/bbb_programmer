@@ -110,10 +110,7 @@ class DHCPServer(object):
             data = self.sock.recv(4096)
             try:
                 pkt = DhcpPacket(data)
-                client = "unknown"
-                if hasattr(pkt, 'vendor_class'):
-                    client = pkt.vendor_class
-                log.info("Receipt DHCP request from: %s", client)
+                log.info("Receipt DHCP request from: %s", pkt.vendor_class)
                 self.handle_bootp_request(pkt)
                 log.debug("Boot request handled")
 

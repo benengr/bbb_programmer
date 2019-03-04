@@ -57,6 +57,15 @@ def _unpack_ip(ip_addr):
 
 class DhcpPacket(object):
     def __init__(self, pkt):
+        # Setup Defaults
+        self.unknown_options = []
+        self.is_pxe_request = False
+        self.requested_ip = None
+        # BOOTP Requests do no have the DCHP_OPTION_OP, so assume it's
+        # Discover unless otherwise stated.
+        self.op = Constants.DHCP_OP_DHCPDISCOVER
+        self.vendor_class = 'unknown'
+
         # Check the ethernet type. It needs to be IP (0x800).
         if struct.unpack('!H', pkt[12:14])[0] != Constants.ETHERNET_IP_PROTO:
             raise NotDhcpPacketError("Invalid Ethernet Protocol")
@@ -93,13 +102,6 @@ class DhcpPacket(object):
         self._parse_dhcp_options(pkt[dhcp_size:])
 
     def _parse_dhcp_options(self, options):
-        self.unknown_options = []
-        self.is_pxe_request = False
-        self.requested_ip = None
-        # BOOTP Requests do no have the DCHP_OPTION_OP, so assume it's
-        # Discover unless otherwise stated.
-        self.op = Constants.DHCP_OP_DHCPDISCOVER
-
         for option, value in _dhcp_options(options):
             if option == Constants.DHCP_OPTION_OP:
                 self.op = ord(value)
