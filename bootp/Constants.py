@@ -4,34 +4,25 @@ ETHERNET_IP_PROTO = 0x800
 # The UDP protocol number in IP datagrams.
 IP_UDP_PROTO = 0x11
 
-# The full size of a BOOTP packet
-BOOTP_PACKET_SIZE = 300
+# DHCP operation types. There are others, but we don't care.
+DHCP_OP_DHCPDISCOVER = 1
+DHCP_OP_DHCPOFFER = 2
+DHCP_OP_DHCPREQUEST = 3
+DHCP_OP_DHCPACK = 5
 
-# The BOOTP magic cookie value that precedes option fields.
-BOOTP_MAGIC_COOKIE = 0x63825363
+# The DHCP magic cookie value that precedes option fields.
+DHCP_MAGIC_COOKIE = 0x63825363
 
-# BOOTP operation types.
-BOOTP_OP_BOOTPREQUEST = 1
-BOOTP_OP_BOOTPREPLY = 2
-
-# BOOTP vendor information extensions, as defined in RFC 1497
-BOOTP_OPTION_PAD = 0
-BOOTP_OPTION_SUBNET = 1
-BOOTP_OPTION_OFFSET = 2
-BOOTP_OPTION_GATEWAY = 3
-BOOTP_OPTION_TIMESERVER = 4
-BOOTP_OPTION_IEN_NAMESERVER = 5
-BOOTP_OPTION_DNS = 6
-BOOTP_OPTION_LOGSERVER = 7
-BOOTP_OPTION_QUOTESERVER = 8
-BOOTP_OPTION_LPRSERVER = 9
-BOOTP_OPTION_IMPRESSSERVER = 10
-BOOTP_OPTION_RLPSERVER = 11
-BOOTP_OPTION_HOSTNAME = 12
-BOOTP_OPTION_BOOTFILESIZE = 13
-BOOTP_OPTION_MERITDUMP = 14
-BOOTP_OPTION_DOMAINNAME = 15
-BOOTP_OPTION_SWAPSERVER = 16
-BOOTP_OPTION_ROOTPATH = 17
-BOOTP_OPTION_EXTENSION = 18
-BOOTP_OPTION_END = 255
+# DHCP options we care about.
+DHCP_OPTION_SUBNET = 1                # Subnet mask
+DHCP_OPTION_ROUTER = 3                # Router
+DHCP_OPTION_DNS = 6                   # Domain Name Servers (DNS)
+DHCP_OPTION_REQUESTED_IP = 50         # Requested IP address
+DHCP_OPTION_LEASE_TIME = 51           # Lease time for the IP address
+DHCP_OPTION_OP = 53                   # The DHCP operation (see above)
+DHCP_OPTION_SERVER_ID = 54            # Server Identifier (IP address)
+DHCP_OPTION_VENDOR_CLASS_ID = 60      # The vendor class identifier, used
+                                      # to identify PXE clients
+DHCP_OPTION_CLIENT_UUID = 61          # The client machine UUID
+DHCP_OPTION_PXE_VENDOR = 43           # PXE vendor extensions
+DHCP_OPTION_CLIENT_UUID2 = 97         # The client machine UUID

@@ -1,10 +1,10 @@
-from bootp.BOOTPServer import BOOTPServer
+from bootp.DHCPServer import DHCPServer
 import logging
 
 
 def run_server():
     log = logging.getLogger('bootpthread')
-    server = BOOTPServer('usb0', None, '192.168.4.1', '192.168.4.1')
+    server = DHCPServer('usb0', None, '192.168.4.1', '192.168.4.1')
     done = False
     while not done:
         try:

@@ -1,6 +1,6 @@
 import threading
 import logging
-from bootp.BOOTPServer import BOOTPServer
+from bootp.DHCPServer import DHCPServer
 from tftp.Server import Server
 import netifaces
 import time
@@ -29,7 +29,7 @@ def wait_for_interface(iface, poll_time, logger):
 
 
 def start_bootp(ip):
-    server = BOOTPServer(IFACE, None, ip, ip)
+    server = DHCPServer(IFACE, None, ip, ip)
     server.serve_forever()
 
 
