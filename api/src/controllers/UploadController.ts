@@ -4,8 +4,10 @@ import fs from "fs";
 import multer from "multer";
 import path from "path";
 
+const uploadDir = "./uploads";
+
 const storage = multer.diskStorage({
-    destination: "./uploads",
+    destination: uploadDir,
     filename: (req, file, cb) => {
         cb(null, file.originalname);
     }
@@ -21,9 +23,10 @@ const router = express.Router();
 router.post("/upload", upload, async (req, res) => {
     console.info(`${req.file.originalname} uploaded successfully`);
 
-    console.info(`Extracting ${req.file.filename}`);
+    console.info(`running "unzip ${uploadDir}/${req.file.filename}"`);
     try {
-        await exec(`unzip ${req.file.filename}`);
+        await exec(`cd ${uploadDir} && unzip ${req.file.filename}`);
+        await exec(`rm ${uploadDir}/${req.file.filename}`);
         console.info("Success");
         res.sendStatus(200).end();
     } catch (err) {
