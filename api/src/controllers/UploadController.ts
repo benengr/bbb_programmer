@@ -1,3 +1,4 @@
+import { exec } from "child_process";
 import express from "express";
 import fs from "fs";
 import multer from "multer";
@@ -17,9 +18,19 @@ const upload = multer({
 
 const router = express.Router();
 
-router.post("/upload", upload, (req, res) => {
+router.post("/upload", upload, async (req, res) => {
     console.info(`${req.file.originalname} uploaded successfully`);
-    res.sendStatus(200).end();
+
+    console.info(`Extracting ${req.file.filename}`);
+    try {
+        await exec(`unzip ${req.file.filename}`);
+        console.info("Success");
+        res.sendStatus(200).end();
+    } catch (err) {
+        console.info("Error");
+        console.error(err);
+        res.sendStatus(500).send("Could not unzip file");
+    }
 });
 
 export default router;
