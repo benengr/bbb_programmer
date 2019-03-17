@@ -111,7 +111,11 @@ class DHCPServer(object):
             data = self.sock.recv(4096)
             try:
                 pkt = DhcpPacket(data)
-                log.info("Receipt DHCP request from: %s", pkt.vendor_class)
+                log.info("Received DHCP request from: %s", pkt.vendor_class)
+                if self.connection_callback is not None:
+                    self.connection_callback(pkt.vendor_class)
+                else:
+                    log.warning("Connection callback was none")
                 self.handle_bootp_request(pkt)
                 log.debug("Boot request handled")
 
@@ -136,9 +140,6 @@ class DHCPServer(object):
                 ip = self.generate_free_ip()
                 self.ips_allocated[ip] = timeout
             log.info('PXE booting client %s (uuid : %s)' % (ip, pkt.uuid))
-
-        if self.connection_callback is not None:
-            self.connection_callback(pkt.vendor_class)
 
         filename = DHCPServer.get_filename(pkt.vendor_class)
         self.sock.send(self.encode_dhcp_reply(pkt, ip, filename))
