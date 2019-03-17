@@ -54,7 +54,7 @@ if __name__ == "__main__":
     log = logging.getLogger('main')
     log.info("System Started")
     bootp_thread = None
-    tftp_thread = None
+    tftp_thread = 1
     try:
         while True:
             address = wait_for_interface(IFACE, 1, log)
