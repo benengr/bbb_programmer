@@ -53,7 +53,7 @@ def start_tftp(ip):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     log = logging.getLogger('main')
     log.info("System Started")
     bootp_thread = None
