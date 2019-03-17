@@ -34,8 +34,8 @@ def wait_for_interface(iface, poll_time, logger):
 
 
 def connection_handler(vendor):
-    log.debug("Received Connection {}".format(vendor))
-    if vendor == "AM335x ROM":
+    log.info("Received Connection {}".format(vendor))
+    if vendor == "udhcp 1.23.1":
         handler.booted_system_connected()
 
 
