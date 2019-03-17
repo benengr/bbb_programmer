@@ -91,7 +91,7 @@ def _pack_mac(mac_addr):
 
 
 class DHCPServer(object):
-    def __init__(self, interface, bootfile, router=None, tftp_server=None):
+    def __init__(self, interface, bootfile, router=None, tftp_server=None, connection_callback=None):
         self.interface = interface
         self.ip, self.netmask, self.mac = get_ip_config_for_iface(interface)
         self.hostname = socket.gethostname()
@@ -103,6 +103,7 @@ class DHCPServer(object):
 
         self.sock = socket.socket(socket.PF_PACKET, socket.SOCK_RAW)
         self.sock.bind((self.interface, Constants.ETHERNET_IP_PROTO))
+        self.connection_callback = connection_callback
 
     def serve_forever(self):
         log.info('Serving BOOTP requests on %s' % self.interface)
@@ -135,6 +136,9 @@ class DHCPServer(object):
                 ip = self.generate_free_ip()
                 self.ips_allocated[ip] = timeout
             log.info('PXE booting client %s (uuid : %s)' % (ip, pkt.uuid))
+
+        if self.connection_callback is not None:
+            self.connection_callback(pkt.vendor_class)
 
         filename = DHCPServer.get_filename(pkt.vendor_class)
         self.sock.send(self.encode_dhcp_reply(pkt, ip, filename))

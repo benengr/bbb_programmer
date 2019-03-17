@@ -40,7 +40,7 @@ def connection_handler(vendor):
 
 
 def start_bootp(ip):
-    server = DHCPServer(IFACE, None, ip, ip)
+    server = DHCPServer(IFACE, None, ip, ip, connection_callback=connection_handler)
     server.serve_forever()
 
 
