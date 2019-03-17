@@ -22,15 +22,14 @@ def wait_for_interface(iface, poll_time, logger):
                 logger.debug("%s exists, trying to find IP address", iface)
                 return netifaces.ifaddresses(iface)[2][0]['addr']
             except ValueError:
-                logger.debug("Could not get an address for %s", iface)
                 handler.no_connection()
-                pass
             # A Key error means a USB RNDIS device has been enumerated
             # but not actually brought all the way up
             except KeyError:
                 handler.unknown_system_connected()
                 logger.debug("KeyError while getting address for %s", iface)
         time.sleep(poll_time)
+        handler.no_connection()
 
 
 def connection_handler(vendor):
