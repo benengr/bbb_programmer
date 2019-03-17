@@ -34,7 +34,7 @@ def wait_for_interface(iface, poll_time, logger):
 
 
 def connection_handler(vendor):
-    log.debug("Received Connection {}".format(id))
+    log.debug("Received Connection {}".format(vendor))
     if vendor == "AM335x ROM":
         handler.booted_system_connected()
 
