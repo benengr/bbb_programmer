@@ -4,10 +4,13 @@ from bootp.DHCPServer import DHCPServer
 from tftp.Server import Server
 import netifaces
 import time
+import state.event_handler
 
 IFACE = 'usb0'
 TFTP_ROOT = '/var/tftproot'
 TFTP_PORT = 69
+
+handler = state.event_handler.EventHandler()
 
 
 def wait_for_interface(iface, poll_time, logger):
@@ -19,13 +22,21 @@ def wait_for_interface(iface, poll_time, logger):
                 logger.debug("%s exists, trying to find IP address", iface)
                 return netifaces.ifaddresses(iface)[2][0]['addr']
             except ValueError as error:
-                logger.error("Could not get an address for %s", iface)
-                logger.exception(error)
+                logger.debug("Could not get an address for %s", iface)
+                handler.no_connection()
                 pass
-            except KeyError as error:
-                logger.error("KeyError while getting address for %s", iface)
-                logger.exception(error)
+            # A Key error means a USB RNDIS device has been enumerated
+            # but not actually brought all the way up
+            except KeyError:
+                handler.unknown_system_connected()
+                logger.debug("KeyError while getting address for %s", iface)
         time.sleep(poll_time)
+
+
+def connection_handler(vendor):
+    log.debug("Received Connection {}".format(id))
+    if vendor == "AM335x ROM":
+        handler.booted_system_connected()
 
 
 def start_bootp(ip):
