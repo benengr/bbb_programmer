@@ -7,7 +7,6 @@ STATE_READY = 1
 STATE_STARTED = 2
 STATE_ERROR = 1000
 IDLE_TIMEOUT = 5
-lock = asyncio.Lock()
 
 
 class EventHandler:
@@ -17,28 +16,24 @@ class EventHandler:
         self.set_led_for_state()
 
     def booted_system_connected(self):
-        async with lock:
-            self.current = STATE_STARTED
-            self.set_led_for_state()
+        self.current = STATE_STARTED
+        self.set_led_for_state()
 
     def unknown_system_connected(self):
-        async with lock:
-            if self.current == STATE_ERROR or self.current == STATE_IDLE:
-                self.current = STATE_READY
-                self.set_led_for_state()
-
-    def error(self):
-        async with lock:
-            self.current = STATE_ERROR
+        if self.current == STATE_ERROR or self.current == STATE_IDLE:
+            self.current = STATE_READY
             self.set_led_for_state()
 
+    def error(self):
+        self.current = STATE_ERROR
+        self.set_led_for_state()
+
     def no_connection(self):
-        async with lock:
-            if self.idle_count < IDLE_TIMEOUT:
-                self.idle_count += 1
-            if self.idle_count >= IDLE_TIMEOUT:
-                self.current = STATE_IDLE
-                self.set_led_for_state()
+        if self.idle_count < IDLE_TIMEOUT:
+            self.idle_count += 1
+        if self.idle_count >= IDLE_TIMEOUT:
+            self.current = STATE_IDLE
+            self.set_led_for_state()
 
     def set_led_for_state(self):
         state = self.current
