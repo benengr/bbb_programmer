@@ -40,8 +40,11 @@ def connection_handler(vendor):
 
 
 def start_bootp(ip):
-    server = DHCPServer(IFACE, None, ip, ip, connection_callback=connection_handler)
-    server.serve_forever()
+    try:
+        server = DHCPServer(IFACE, None, ip, ip, connection_callback=connection_handler)
+        server.serve_forever()
+    except:
+        log.info('Network is disconnected')
 
 
 def start_tftp(ip):
