@@ -21,7 +21,7 @@ def wait_for_interface(iface, poll_time, logger):
             try:
                 logger.debug("%s exists, trying to find IP address", iface)
                 return netifaces.ifaddresses(iface)[2][0]['addr']
-            except ValueError as error:
+            except ValueError:
                 logger.debug("Could not get an address for %s", iface)
                 handler.no_connection()
                 pass
@@ -60,7 +60,7 @@ if __name__ == "__main__":
     tftp_thread = 1
     try:
         while True:
-            address = wait_for_interface(IFACE, 1, log)
+            address = wait_for_interface(IFACE, 0.25, log)
             print(address)
             thread_args = (address,)
             logging.info("found interface with ip: %s", address)
