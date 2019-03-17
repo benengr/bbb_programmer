@@ -61,7 +61,6 @@ if __name__ == "__main__":
     try:
         while True:
             address = wait_for_interface(IFACE, 0.25, log)
-            print(address)
             thread_args = (address,)
             logging.info("found interface with ip: %s", address)
             if bootp_thread is None:
