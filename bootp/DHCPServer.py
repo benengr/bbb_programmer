@@ -91,7 +91,7 @@ def _pack_mac(mac_addr):
 
 
 class DHCPServer(object):
-    def __init__(self, interface, bootfile, router=None, tftp_server=None):
+    def __init__(self, interface, bootfile, router=None, tftp_server=None, connection_callback=None):
         self.interface = interface
         self.ip, self.netmask, self.mac = get_ip_config_for_iface(interface)
         self.hostname = socket.gethostname()
@@ -103,6 +103,7 @@ class DHCPServer(object):
 
         self.sock = socket.socket(socket.PF_PACKET, socket.SOCK_RAW)
         self.sock.bind((self.interface, Constants.ETHERNET_IP_PROTO))
+        self.connection_callback = connection_callback
 
     def serve_forever(self):
         log.info('Serving BOOTP requests on %s' % self.interface)
@@ -110,7 +111,11 @@ class DHCPServer(object):
             data = self.sock.recv(4096)
             try:
                 pkt = DhcpPacket(data)
-                log.info("Receipt DHCP request from: %s", pkt.vendor_class)
+                log.info("Received DHCP request from: %s", pkt.vendor_class)
+                if self.connection_callback is not None:
+                    self.connection_callback(pkt.vendor_class)
+                else:
+                    log.warning("Connection callback was none")
                 self.handle_bootp_request(pkt)
                 log.debug("Boot request handled")
 

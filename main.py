@@ -4,10 +4,13 @@ from bootp.DHCPServer import DHCPServer
 from tftp.Server import Server
 import netifaces
 import time
+import state.event_handler
 
 IFACE = 'usb0'
 TFTP_ROOT = '/var/tftproot'
 TFTP_PORT = 69
+
+handler = state.event_handler.EventHandler()
 
 
 def wait_for_interface(iface, poll_time, logger):
@@ -18,19 +21,29 @@ def wait_for_interface(iface, poll_time, logger):
             try:
                 logger.debug("%s exists, trying to find IP address", iface)
                 return netifaces.ifaddresses(iface)[2][0]['addr']
-            except ValueError as error:
-                logger.error("Could not get an address for %s", iface)
-                logger.exception(error)
-                pass
-            except KeyError as error:
-                logger.error("KeyError while getting address for %s", iface)
-                logger.exception(error)
+            except ValueError:
+                handler.no_connection()
+            # A Key error means a USB RNDIS device has been enumerated
+            # but not actually brought all the way up
+            except KeyError:
+                handler.unknown_system_connected()
+                logger.debug("KeyError while getting address for %s", iface)
         time.sleep(poll_time)
+        handler.no_connection()
+
+
+def connection_handler(vendor):
+    log.info("Received Connection {}".format(vendor))
+    if vendor == "udhcp 1.23.1":
+        handler.booted_system_connected()
 
 
 def start_bootp(ip):
-    server = DHCPServer(IFACE, None, ip, ip)
-    server.serve_forever()
+    try:
+        server = DHCPServer(IFACE, None, ip, ip, connection_callback=connection_handler)
+        server.serve_forever()
+    except:
+        log.info('Network is disconnected')
 
 
 def start_tftp(ip):
@@ -39,15 +52,14 @@ def start_tftp(ip):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     log = logging.getLogger('main')
     log.info("System Started")
     bootp_thread = None
-    tftp_thread = None
+    tftp_thread = 1
     try:
         while True:
-            address = wait_for_interface(IFACE, 1, log)
-            print(address)
+            address = wait_for_interface(IFACE, 0.25, log)
             thread_args = (address,)
             logging.info("found interface with ip: %s", address)
             if bootp_thread is None:
