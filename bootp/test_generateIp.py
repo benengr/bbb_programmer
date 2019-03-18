@@ -27,3 +27,8 @@ class TestIPGenerator(TestCase):
         gen = IpGenerator("192.168.4.1", "255.255.255.0")
         ip = gen.generate_ip(0)
         self.assertFalse(gen.is_ip_valid(ip))
+
+    def test_bcast(self):
+        gen = IpGenerator("192.168.4.1", "255.255.255.0")
+        ip = gen.generate_ip(0xFFFFFFFF)
+        self.assertFalse(gen.is_ip_valid(ip))
