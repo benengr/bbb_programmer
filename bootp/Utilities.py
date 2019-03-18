@@ -2,8 +2,6 @@ import socket
 import struct
 import sys
 
-from bootp.DHCPServer import SIOCGIFADDR, SIOCGIFNETMASK, SIOCGIFHWADDR
-
 
 def _pack_ip(ip_addr):
     """Pack a dotted quad IP string into a 4 byte string."""
@@ -65,3 +63,8 @@ def get_ip_config_for_iface(iface):
     mac = fcntl.ioctl(s.fileno(), SIOCGIFHWADDR, ifname)
     return ip_from_response(ip), ip_from_response(mask), \
         mac_from_response(mac)
+
+
+SIOCGIFADDR = 0x8915  # IP address for interface
+SIOCGIFNETMASK = 0x891B  # Netmask for interface
+SIOCGIFHWADDR = 0x8927  # MAC address for interface

@@ -7,9 +7,6 @@ import time
 from bootp.DHCPPacket import DhcpPacket, NotDhcpPacketError
 from bootp.Utilities import _pack_ip, _unpack_ip, _pack_mac, get_ip_config_for_iface
 
-SIOCGIFADDR = 0x8915  # IP address for interface
-SIOCGIFNETMASK = 0x891B  # Netmask for interface
-SIOCGIFHWADDR = 0x8927  # MAC address for interface
 log = logging.getLogger('dhcpd')
 
 # DHCP lease timeout in seconds. Internally, we wait longer, to let
