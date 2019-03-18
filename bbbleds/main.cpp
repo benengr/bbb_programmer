@@ -1,11 +1,11 @@
 #include <cstdio>
 #include <unistd.h>
 #include <pthread.h>
+#include <signal.h>
 
 pthread_mutex_t state_lock;
 
 enum States {
-    IDLE,
     DONE,
     ERROR,
     CYLON_1,
@@ -18,18 +18,18 @@ enum States {
 
 // This needs to be global becase
 // it is set by signal callbacks.
-States next = IDLE;
+States next = CYLON_1;
 
 void do_state(States next) {    
-    static States last = IDLE;
+    static States last = CYLON_1;
     if(next == last) return;
     last = next;
     switch(next) {
-        case IDLE:
-        break;
         case DONE:
+            printf("Done\n");
         break;
         case ERROR:
+            printf("Error\n");
         break;
         case CYLON_1:
             printf("1\n");
@@ -78,9 +78,24 @@ States getNextState(States current) {
     return current;
 }
 
+void sig_handler(int signum) {
+    std::printf("Received %d\n", signum);
+    pthread_mutex_lock(&state_lock);
+    switch(signum) {
+        case SIGUSR1:
+            next = DONE;
+            break;
+        case SIGUSR2:
+            next = ERROR;
+            break;
+    }
+    pthread_mutex_unlock(&state_lock);
+}
+
 int main() {
     int cylon_count = 1;
-    States next = CYLON_1;
+    signal(SIGUSR1, sig_handler);
+    signal(SIGUSR2, sig_handler);
 
     while(1) {
         do_state(next);
