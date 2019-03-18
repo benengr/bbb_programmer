@@ -36,6 +36,7 @@ tftp -g -r ${DEBRICK_SCRIPT} ${SERVER_IP}
 if [ $? -ne 0 ]
 	then 
 		echo "Unable to fetch flasher script! Exiting..."
+		killall -s USR2 ledd
 		exit 1
 fi
 
@@ -46,17 +47,23 @@ chmod +x ${DEBRICK_SCRIPT}
 if [ $? -ne 0 ]
 	then 
 		echo "Unable to make flasher script executable. Exiting..."
+		killall -s USR2 ledd
 		exit 1
 fi
 
 echo ""
 echo "**************************************************************"
-echo "Sitara Flash Fetcher is complete. Executing ${DEBRICK_SCRIPT}."
+echo "Bird Flash Fetcher is complete. Executing ${DEBRICK_SCRIPT}."
 echo ""
 
 ## Execute script. Pass SERVER_IP and MAD_ADDR flasher.sh.
 echo "Calling Script=${DEBRICK_SCRIPT} with SERVER_IP=${SERVER_IP}"
 ./${DEBRICK_SCRIPT} ${SERVER_IP} ${MAC_ADDR}
-
-
-
+if [ $? -eq 0 ]
+then
+	echo "${DEBRICK_SCRIPT} was successful"
+	killall -s USR1 ledd
+else
+	echo "${DEBRICK_SCRIPT} failed, see previous lines for error messages"
+	killall -s USR2 ledd
+fi
