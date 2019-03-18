@@ -1,8 +1,8 @@
 src = $(wildcard *.cpp)
 obj = $(src:.c=.o)
 outdir = bin/
-LDFLAGS = 
-CC=$(CROSS_COMPILE)gcc
+LDFLAGS =  -lpthread
+CC=$(CROSS_COMPILE)g++
 ledd: $(obj)
 	mkdir -p $(outdir)
 	$(CC) -o $(outdir)$@ $^ $(LDFLAGS)

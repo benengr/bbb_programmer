@@ -1,5 +1,8 @@
 #include <cstdio>
 #include <unistd.h>
+#include <pthread.h>
+
+pthread_mutex_t state_lock;
 
 enum States {
     IDLE,
@@ -81,7 +84,9 @@ int main() {
 
     while(1) {
         do_state(next);
+        pthread_mutex_lock(&state_lock);
         next = getNextState(next);
+        pthread_mutex_unlock(&state_lock);
         usleep(100000);
     }
 }
