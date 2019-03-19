@@ -2,8 +2,80 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <signal.h>
+#include <fstream>
+#include <string>
 
+using namespace std;
 pthread_mutex_t state_lock;
+
+string paths[] = {
+    "/sys/class/leds/beaglebone:green:heartbeat",
+    "/sys/class/leds/beaglebone:green:mmc0",
+    "/sys/class/leds/beaglebone:green:usr2",
+    "/sys/class/leds/beaglebone:green:usr3"
+};
+
+const char * getPath(int id, string element) {
+    string val = paths[id] + element;
+    return val.c_str();
+}
+
+void setSingleLed(int id) {
+    std::fstream fs;
+    int ledIndex = 0;
+
+    for(ledIndex = 0; ledIndex < 4; ledIndex++) {
+        fs.open(getPath(ledIndex, "/trigger"), std::fstream::out);
+        fs << "none";
+        fs.close();
+
+        fs.open(getPath(ledIndex, "/brightness"), std::fstream::out);
+        if(ledIndex = id - 1) {
+            fs << "1";
+        } else {
+            fs << "0";
+        }
+        fs.close();
+    }
+}
+
+void setErrorState() {
+    std::fstream fs;
+    int ledIndex = 0;
+
+    for(ledIndex = 0; ledIndex < 4; ledIndex++) {
+        fs.open(getPath(ledIndex, "/trigger"), std::fstream::out);
+        fs << "timer";
+        fs.close();
+
+        fs.open(getPath(ledIndex, "/delay_on"), std::fstream::out);
+        fs << "40";        
+        fs.close();
+
+        fs.open(getPath(ledIndex, "/delay_off"), std::fstream::out);
+        fs << "60";        
+        fs.close();
+    }
+}
+
+void setDoneState() {
+    int ledIndex = 4;
+    fstream fs;
+    setSingleLed(ledIndex);
+
+    fs.open(getPath(ledIndex, "/trigger"), std::fstream::out);
+    fs << "timer";
+    fs.close();
+
+    fs.open(getPath(ledIndex, "/delay_on"), std::fstream::out);
+    fs << "40";        
+    fs.close();
+
+    fs.open(getPath(ledIndex, "/delay_off"), std::fstream::out);
+    fs << "60";        
+    fs.close();
+
+}
 
 enum States {
     DONE,
@@ -26,24 +98,24 @@ void do_state(States next) {
     last = next;
     switch(next) {
         case DONE:
-            printf("Done\n");
+            setDoneState();
         break;
         case ERROR:
-            printf("Error\n");
+            setErrorState();
         break;
         case CYLON_1:
-            printf("1\n");
+            setSingleLed(1);
         break;
         case CYLON_2:
         case CYLON_6:
-            printf("2\n");
+            setSingleLed(2);
         break;
         case CYLON_3:
         case CYLON_5:
-            printf("3\n");
+            setSingleLed(3);
         break;
         case CYLON_4:
-            printf("4\n");
+            setSingleLed(4);
         break;
     }
 }
