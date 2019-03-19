@@ -1,3 +1,58 @@
+ONE="/sys/class/leds/beaglebone:green:heartbeat"
+TWO="/sys/class/leds/beaglebone:green:mmc0"
+THREE="/sys/class/leds/beaglebone:green:usr2"
+FOUR="/sys/class/leds/beaglebone:green:usr3"
+cylon_start() {
+	echo "cylon_start"
+	echo gpio > ${ONE}/trigger
+	echo gpio > ${TWO}/trigger
+	echo gpio > ${THREE}/trigger
+	echo gpio > ${FOUR}/trigger
+
+	while [ 1 -gt 0 ]; do
+		echo 1 > ${ONE}/brightness
+		usleep 400000
+		echo 0 > ${ONE}/brightness
+		echo 1 > ${TWO}/brightness
+		usleep 100000
+		echo 0 > ${TWO}/brightness
+		echo 1 > ${THREE}/brightness
+		usleep 100000
+		echo 0 > ${THREE}/brightness
+		echo 1 > ${FOUR}/brightness
+		usleep 400000
+		echo 0 > ${FOUR}/brightness
+		echo 1 > ${THREE}/brightness
+		usleep 100000
+		echo 0 > ${THREE}/brightness
+		echo 1 > ${TWO}/brightness
+		usleep 100000
+		echo 0 > ${TWO}/brightness
+	done
+}
+
+cylon_stop() {
+	echo 1 > ${ONE}/brightness
+	echo 1 > ${TWO}/brightness
+	echo 1 > ${THREE}/brightness
+	echo 1 > ${FOUR}/brightness
+
+	echo heartbeat > ${ONE}/trigger
+	echo mmc0 > ${TWO}/trigger
+	echo none > ${THREE}/trigger
+	echo mmc1 > ${FOUR}/trigger
+}
+
+cylon_error() {
+	echo heartbeat > ${ONE}/trigger
+	echo heartbeat > ${TWO}/trigger
+	echo heartbeat > ${THREE}/trigger
+	echo heartbeat > ${FOUR}/trigger
+}
+
+cylon_start &
+CYLON_PID=$!
+
 echo "****************************************************"
 echo "****************************************************"
 echo ""
@@ -62,8 +117,10 @@ echo "Calling Script=${DEBRICK_SCRIPT} with SERVER_IP=${SERVER_IP}"
 if [ $? -eq 0 ]
 then
 	echo "${DEBRICK_SCRIPT} was successful"
-	killall -s USR1 ledd
+	kill $CYLON_PID > /dev/null 2>&1
+	cylon_stop
 else
 	echo "${DEBRICK_SCRIPT} failed, see previous lines for error messages"
-	killall -s USR2 ledd
+	kill $CYLON_PID > /dev/null 2>&1
+	cylon_error
 fi
