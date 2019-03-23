@@ -15,9 +15,9 @@ for led in LEDS:
 
 def turn_all_off():
     for led in LEDS:
-        GPIO.output(led, 0)
+        GPIO.output(led, 1)
 
 
 def turn_on(led):
     turn_all_off()
-    GPIO.output(led, 1)
+    GPIO.output(led, 0)
