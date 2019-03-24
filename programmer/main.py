@@ -5,6 +5,7 @@ from tftp.Server import Server
 import netifaces
 import time
 import state.event_handler
+from logging.handlers import RotatingFileHandler
 
 IFACE = 'usb0'
 TFTP_ROOT = '/var/tftproot'
@@ -52,7 +53,10 @@ def start_tftp(ip):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, filename="/home/pi/bbb_programmer.log", format='%(asctime)s %(message)s')
+    fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
+    log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=20, backupCount=5)
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
+    logging.getLogger().addHandler(log_handler)
     log = logging.getLogger('main')
     log.info("System Started")
     bootp_thread = None
