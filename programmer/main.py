@@ -52,7 +52,7 @@ def start_tftp(ip):
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.INFO, filename="/home/pi/bbb_programmer.log", format='%(asctime)s %(message)s')
     log = logging.getLogger('main')
     log.info("System Started")
     bootp_thread = None
