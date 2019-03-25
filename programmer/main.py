@@ -5,6 +5,7 @@ from tftp.Server import Server
 import netifaces
 import time
 import state.event_handler
+import state.leds as leds
 from logging.handlers import RotatingFileHandler
 
 IFACE = 'usb0'
@@ -52,7 +53,22 @@ def start_tftp(ip):
     server.serve_forever()
 
 
+def startup_indication():
+    leds.turn_all_off()
+    for i in range(5):
+        leds.turn_on(leds.RED)
+        time.sleep(0.25)
+        leds.turn_on(leds.GREEN)
+        time.sleep(0.25)
+        leds.turn_on(leds.BLUE)
+        time.sleep(0.25)
+        leds.turn_on(leds.GREEN)
+        time.sleep(0.25)
+    leds.turn_all_off()
+
+
 if __name__ == "__main__":
+    startup_indication()
     fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
     log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=20, backupCount=5)
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
