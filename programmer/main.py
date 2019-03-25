@@ -70,7 +70,7 @@ def startup_indication():
 if __name__ == "__main__":
     startup_indication()
     fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
-    log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=20, backupCount=5)
+    log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=fileSize, backupCount=5)
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     logging.getLogger().addHandler(log_handler)
     log = logging.getLogger('main')
