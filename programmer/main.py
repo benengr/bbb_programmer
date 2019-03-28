@@ -8,9 +8,6 @@ import state.event_handler
 import state.leds as leds
 from logging.handlers import RotatingFileHandler
 
-IFACE = 'usb0'
-TFTP_ROOT = '/var/tftproot'
-TFTP_PORT = 69
 
 handler = state.event_handler.EventHandler()
 
@@ -40,17 +37,13 @@ def connection_handler(vendor):
         handler.booted_system_connected()
 
 
-def start_bootp(ip):
+def start_bootp(iface, ip):
     try:
-        server = DHCPServer(IFACE, None, ip, ip, connection_callback=connection_handler)
+        log.info("bootp for %s on ip %s", iface, ip)
+        server = DHCPServer(iface, None, ip, ip, connection_callback=connection_handler)
         server.serve_forever()
     except:
         log.info('Network is disconnected')
-
-
-def start_tftp(ip):
-    server = Server(ip, TFTP_ROOT, TFTP_PORT)
-    server.serve_forever()
 
 
 def startup_indication():
@@ -67,6 +60,18 @@ def startup_indication():
     leds.turn_all_off()
 
 
+def dhcp_thread(iface):
+    logging.info("starting thread %s", iface)
+    while True:
+        try:
+            address = wait_for_interface(iface, 0.5, log)
+            logging.info("found interface with ip : %s", address)
+            start_bootp(iface, address)
+        except Exception as ex:
+            log.error("unhandled exception occurred on thread %s", iface)
+            log.exception(ex)
+
+
 if __name__ == "__main__":
     startup_indication()
     fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
@@ -75,25 +80,13 @@ if __name__ == "__main__":
     logging.getLogger().addHandler(log_handler)
     log = logging.getLogger('main')
     log.info("System Started")
-    bootp_thread = None
-    tftp_thread = 1
-    try:
-        while True:
-            address = wait_for_interface(IFACE, 0.25, log)
-            thread_args = (address,)
-            logging.info("found interface with ip: %s", address)
-            if bootp_thread is None:
-                bootp_thread = threading.Thread(target=start_bootp, args=thread_args)
-                log.info("Starting bootp thread")
-                bootp_thread.start()
-            if tftp_thread is None:
-                tftp_thread = threading.Thread(target=start_tftp, args=thread_args)
-                log.info("Starting tftp thread")
-                tftp_thread.start()
-            log.info("Waiting for threads to complete")
-            bootp_thread.join()
-            bootp_thread = None
-    except Exception as ex:
-        log.error("unhandled exception occurred")
-        log.exception(ex)
+    usb1_thread = threading.Thread(target=dhcp_thread, args=('usb0',))
+    usb2_thread = threading.Thread(target=dhcp_thread, args=('usb1',))
+    usb3_thread = threading.Thread(target=dhcp_thread, args=('usb2',))
+    usb4_thread = threading.Thread(target=dhcp_thread, args=('usb3',))
+    usb1_thread.start()
+    usb2_thread.start()
+    usb3_thread.start()
+    usb4_thread.start()
+    usb1_thread.join()
     log.info("Exiting")

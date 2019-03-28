@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="04e41289-72e5-4d70-9531-4a5878f29bd9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/programmer/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/programmer/main.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/teamcity/diff_tools.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/programmer/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="503">
+              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/programmer/state/leds.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/unittest/case.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1005">
+              <caret line="80" selection-start-line="80" selection-end-line="80" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/contextlib.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1875">
+              <caret line="129" selection-start-line="129" selection-end-line="129" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>bootfile</find>
+      <find>BLOCKS</find>
+      <find>BLOCK</find>
+      <find>info</find>
+      <find>vendor</find>
+      <find>print</find>
+    </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/tftp.py" />
+        <option value="$PROJECT_DIR$/bootp/test_BootPServer.py" />
+        <option value="$PROJECT_DIR$/tftp/Server.py" />
+        <option value="$PROJECT_DIR$/bootp/dhcpd.py" />
+        <option value="$PROJECT_DIR$/bootp/Constants.py" />
+        <option value="$PROJECT_DIR$/bootp/BOOTPServer.py" />
+        <option value="$PROJECT_DIR$/bootp.py" />
+        <option value="$PROJECT_DIR$/bootp/DHCPPacket.py" />
+        <option value="$PROJECT_DIR$/tftp/proto.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/state/event_handler.py" />
+        <option value="$PROJECT_DIR$/bootp/test_bootpPacket.py" />
+        <option value="$PROJECT_DIR$/bootp/Utilities.py" />
+        <option value="$PROJECT_DIR$/bootp/DHCPServer.py" />
+        <option value="$PROJECT_DIR$/bootp/IpGenerator.py" />
+        <option value="$PROJECT_DIR$/bootp/test_generateIp.py" />
+        <option value="$PROJECT_DIR$/state/leds.py" />
+        <option value="$PROJECT_DIR$/programmer/main.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1680" />
+    <option name="height" value="947" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="bbb_programmer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bbb_programmer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bbb_programmer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bbb_programmer" type="462c0819:PsiDirectoryNode" />
+              <item name="programmer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bbb_programmer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bbb_programmer" type="462c0819:PsiDirectoryNode" />
+              <item name="programmer" type="462c0819:PsiDirectoryNode" />
+              <item name="state" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python tests.Unittests in test_generateIp.py">
+    <configuration name="Unittests for test_bootpPacket.TestBootpPacket.test_valid_will_initilize" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="bbb_programmer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bootp" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_bootpPacket.TestBootpPacket.test_valid_will_initilize&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_generateIp.TestIPGenerator.test_zero" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="bbb_programmer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bootp" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_generateIp.TestIPGenerator.test_zero&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in test_bootpPacket.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="bbb_programmer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bootp" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/bootp/test_bootpPacket.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in test_generateIp.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="bbb_programmer" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bootp" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/bootp/test_generateIp.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Unittests in test_generateIp.py" />
+        <item itemvalue="Python tests.Unittests for test_generateIp.TestIPGenerator.test_zero" />
+        <item itemvalue="Python tests.Unittests in test_bootpPacket.py" />
+        <item itemvalue="Python tests.Unittests for test_bootpPacket.TestBootpPacket.test_valid_will_initilize" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04e41289-72e5-4d70-9531-4a5878f29bd9" name="Default Changelist" comment="" />
+      <created>1551274567896</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551274567896</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 20h 58m 19s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 01m 24s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 28m 39s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 29m 23s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 30m 13s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 31m 58s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 35m 16s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 35m 48s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 38m 30s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_test_generateIp_py - 2019.03.17 at 21h 40m 06s.xml">
+      <configuration name="Unittests in test_generateIp.py" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1680" height="947" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16757083" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32881" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5271399" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Python Console" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/bootp/test_generateIp.py</url>
+          <line>33</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/bootp/IpGenerator.py</url>
+          <line>14</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="tests">
+        <watch expression="struct.pack(ip)" language="Python" />
+        <watch expression="client_ip &amp; self.netmask" language="Python" />
+        <watch expression="client_ip | self.netmask" language="Python" />
+        <watch expression="0xFFFFFFFF" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>0xFFFFFFFF</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>client_ip | self.netmask</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>client_ip &amp; self.netmask</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>struct.pack(ip)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>pack</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>''.join(buf)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>__py_debug_temp_var_1020541467</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/bootp/test_BootPServer.py" />
+    <entry file="file://$PROJECT_DIR$/tftp/Server.py" />
+    <entry file="file://$PROJECT_DIR$/tftp.py" />
+    <entry file="file://$PROJECT_DIR$/bootp/Constants.py" />
+    <entry file="file://$PROJECT_DIR$/bootp.py" />
+    <entry file="file://$PROJECT_DIR$/tftp/proto.py" />
+    <entry file="file://$PROJECT_DIR$/bootp/DHCPPacket.py" />
+    <entry file="file://$PROJECT_DIR$/bootp/dhcpd.py" />
+    <entry file="file://$PROJECT_DIR$/state/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py" />
+    <entry file="file://$PROJECT_DIR$/state/event_handler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bootp/test_bootpPacket.py" />
+    <entry file="file://$PROJECT_DIR$/bootp/Utilities.py" />
+    <entry file="file://$PROJECT_DIR$/bootp/DHCPServer.py" />
+    <entry file="file://$PROJECT_DIR$/bootp/test_generateIp.py" />
+    <entry file="file://$PROJECT_DIR$/bootp/IpGenerator.py" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/teamcity/diff_tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.2_1/Frameworks/Python.framework/Versions/3.7/lib/python3.7/contextlib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1875">
+          <caret line="129" selection-start-line="129" selection-end-line="129" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/state/leds.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programmer/state/leds.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/programmer/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
