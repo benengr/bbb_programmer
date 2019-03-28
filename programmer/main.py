@@ -8,9 +8,6 @@ import state.event_handler
 import state.leds as leds
 from logging.handlers import RotatingFileHandler
 
-IFACE = 'usb0'
-TFTP_ROOT = '/var/tftproot'
-TFTP_PORT = 69
 
 handler = state.event_handler.EventHandler()
 
@@ -40,9 +37,10 @@ def connection_handler(vendor):
         handler.booted_system_connected()
 
 
-def start_bootp(ip):
+def start_bootp(iface, ip):
     try:
-        server = DHCPServer(IFACE, None, ip, ip, connection_callback=connection_handler)
+        log.info("bootp for %s on ip %s", iface, ip)
+        server = DHCPServer(iface, None, ip, ip, connection_callback=connection_handler)
         server.serve_forever()
     except:
         log.info('Network is disconnected')
