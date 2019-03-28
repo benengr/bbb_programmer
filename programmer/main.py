@@ -66,7 +66,7 @@ def dhcp_thread(iface):
         try:
             address = wait_for_interface(iface, 0.5, log)
             logging.info("found interface with ip : %s", address)
-            start_bootp(address)
+            start_bootp(iface, address)
         except Exception as ex:
             log.error("unhandled exception occurred on thread %s", iface)
             log.exception(ex)
