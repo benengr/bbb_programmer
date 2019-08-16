@@ -13,6 +13,10 @@ for led in LEDS:
     GPIO.setup(led, GPIO.OUT)
 
 
+def init_led(led):
+    GPIO.setup(led, GPIO.OUT)
+
+
 def turn_all_off():
     for led in LEDS:
         GPIO.output(led, 1)

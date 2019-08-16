@@ -14,6 +14,14 @@ class EventHandler:
         self.current = STATE_IDLE
         self.idle_count = 0
         self.set_led_for_state()
+        self.red = leds.RED
+        self.green = leds.GREEN
+        self.blue = leds.BLUE
+
+    def set_leds(self, red=leds.RED, green=leds.GREEN, blue=leds.BLUE):
+        self.red = red
+        self.green = green
+        self.blue = blue
 
     def booted_system_connected(self):
         self.current = STATE_STARTED
@@ -52,8 +60,8 @@ class EventHandler:
         if state == STATE_IDLE:
             leds.turn_all_off()
         elif state == STATE_READY:
-            leds.turn_on(leds.BLUE)
+            leds.turn_on(self.blue)
         elif state == STATE_STARTED:
-            leds.turn_on(leds.GREEN)
+            leds.turn_on(self.green)
         else:
-            leds.turn_on(leds.RED)
+            leds.turn_on(self.red)
