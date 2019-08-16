@@ -9,14 +9,15 @@ READY_LIMIT = 4 * 30 # 30 Seconds
 STARTED_LIMIT = 1 # .25 Seconds
 ERROR_LIMIT = 4 * 30 # 30 Seconds
 
+
 class EventHandler:
-    def __init__(self):
+    def __init__(self, red = leds.RED, green = leds.GREEN, blue = leds.BLUE):
         self.current = STATE_IDLE
         self.idle_count = 0
         self.set_led_for_state()
-        self.red = leds.RED
-        self.green = leds.GREEN
-        self.blue = leds.BLUE
+        self.red = red
+        self.green = green
+        self.blue = blue
 
     def set_leds(self, red=leds.RED, green=leds.GREEN, blue=leds.BLUE):
         self.red = red
@@ -54,6 +55,10 @@ class EventHandler:
             if self.idle_count > ERROR_LIMIT:
                 self.current = STATE_IDLE
                 self.set_led_for_state()
+
+    def handle_connection(self, vendor):
+        if vendor == "udhcp 1.23.1":
+            self.booted_system_connected()
 
     def set_led_for_state(self):
         state = self.current
