@@ -21,6 +21,10 @@ class EventHandler:
         self.green = green
         self.blue = blue
 
+    def startup(self):
+        t = Thread(target=self.startup_indicator)
+        t.start()
+
     @staticmethod
     def next_startup_color(current):
         if current == leds.RED:

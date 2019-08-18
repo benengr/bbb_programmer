@@ -55,6 +55,8 @@ if __name__ == "__main__":
     h3 = state.event_handler.EventHandler(12, 16, 18)
     h4 = state.event_handler.EventHandler(22, 37, 32)
 
+    h1.startup()
+
     fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
     log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=fileSize, backupCount=5)
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
