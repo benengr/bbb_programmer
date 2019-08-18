@@ -1,11 +1,9 @@
 import threading
 import logging
-from bootp.DHCPServer import DHCPServer
-from tftp.Server import Server
+from .bootp.DHCPServer import DHCPServer
 import netifaces
 import time
-import state.event_handler
-import state.leds as leds
+from .state.event_handler import EventHandler
 from logging.handlers import RotatingFileHandler
 
 
@@ -50,14 +48,14 @@ def dhcp_thread(iface, handler):
 
 
 if __name__ == "__main__":
-    h1 = state.event_handler.EventHandler(7, 11, 13)
-    h2 = state.event_handler.EventHandler(15, 29, 31)
-    h3 = state.event_handler.EventHandler(12, 16, 18)
-    h4 = state.event_handler.EventHandler(22, 37, 32)
+    h1 = EventHandler(7, 11, 13)
+    h2 = EventHandler(15, 29, 31)
+    h3 = EventHandler(12, 16, 18)
+    h4 = EventHandler(22, 37, 32)
 
     h1.startup()
 
-    fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
+    fileSize = 1024 * 1024 * 128  # 128 MB, total of 1.5 GB
     log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=fileSize, backupCount=5)
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     logging.getLogger().addHandler(log_handler)

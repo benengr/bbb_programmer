@@ -13,45 +13,55 @@ ERROR_LIMIT = 4 * 30 # 30 Seconds
 
 
 class EventHandler:
-    def __init__(self, red=leds.RED, green=leds.GREEN, blue=leds.BLUE):
+    def __init__(self, red:int, green:int, blue:int):
         self.current = STATE_IDLE
         self.idle_count = 0
         self.set_led_for_state()
         self.red = red
         self.green = green
         self.blue = blue
-        leds.init_led(self.red)
-        leds.init_led(self.green)
-        leds.init_led(self.blue)
+        self.init_leds()
 
     def startup(self):
         t = Thread(target=self.startup_indicator)
         t.start()
 
-    @staticmethod
-    def next_startup_color(current):
-        if current == leds.RED:
-            return leds.GREEN
-        elif current == leds.GREEN:
-            return leds.BLUE
+    def next_startup_color(self, current):
+        if current == self.red:
+            return self.green
+        elif current == self.green:
+            return self.blue
         else:
-            return leds.RED
+            return self.red
+
+    def init_leds(self):
+        leds.init_led(self.red)
+        leds.init_led(self.green)
+        leds.init_led(self.blue)
+
+    def turn_all_off(self):
+        leds.turn_off(self.red)
+        leds.turn_off(self.blue)
+        leds.turn_off(self.green)
+
+    def turn_on(self, led):
+        self.turn_all_off()
+        leds.turn_on(led)
 
     def startup_indicator(self):
-        leds.turn_all_off()
-        led_color = leds.RED
+        self.turn_all_off()
+        led_color = self.red
         count = 0
         while self.current == STATE_IDLE and count < 10:
             print(f'Starup Loop {count}')
-            leds.turn_on(led_color)
-            leds.turn_on(leds.RED)
-            led_color = EventHandler.next_startup_color(led_color)
+            self.turn_on(led_color)
+            led_color = self.next_startup_color(led_color)
             sleep(0.25)
             count += 1
         if self.current == STATE_IDLE:
-            leds.turn_all_off()
+            self.turn_all_off()
 
-    def set_leds(self, red=leds.RED, green=leds.GREEN, blue=leds.BLUE):
+    def set_leds(self, red: int, green: int, blue: int):
         self.red = red
         self.green = green
         self.blue = blue
@@ -95,10 +105,10 @@ class EventHandler:
     def set_led_for_state(self):
         state = self.current
         if state == STATE_IDLE:
-            leds.turn_all_off()
+            self.turn_all_off()
         elif state == STATE_READY:
-            leds.turn_on(self.blue)
+            self.turn_on(self.blue)
         elif state == STATE_STARTED:
-            leds.turn_on(self.green)
+            self.turn_on(self.green)
         else:
-            leds.turn_on(self.red)
+            self.turn_on(self.red)
