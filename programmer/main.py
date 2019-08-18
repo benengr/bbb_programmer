@@ -9,9 +9,6 @@ import state.leds as leds
 from logging.handlers import RotatingFileHandler
 
 
-# handler = state.event_handler.EventHandler()
-
-
 def wait_for_interface(iface, poll_time, logger, handler):
     logger.info("Waiting for %s to become available", iface)
     while True:
@@ -40,20 +37,6 @@ def start_bootp(iface, ip, handler):
         log.info('Network is disconnected')
 
 
-def startup_indication():
-    leds.turn_all_off()
-    for i in range(5):
-        leds.turn_on(leds.RED)
-        time.sleep(0.25)
-        leds.turn_on(leds.GREEN)
-        time.sleep(0.25)
-        leds.turn_on(leds.BLUE)
-        time.sleep(0.25)
-        leds.turn_on(leds.GREEN)
-        time.sleep(0.25)
-    leds.turn_all_off()
-
-
 def dhcp_thread(iface, handler):
     logging.info("starting thread %s", iface)
     while True:
@@ -67,17 +50,18 @@ def dhcp_thread(iface, handler):
 
 
 if __name__ == "__main__":
-    startup_indication()
+    h1 = state.event_handler.EventHandler(7, 11, 13)
+    h2 = state.event_handler.EventHandler(15, 29, 31)
+    h3 = state.event_handler.EventHandler(12, 16, 18)
+    h1 = state.event_handler.EventHandler(37, 22, 32)
+
     fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
     log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=fileSize, backupCount=5)
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
     logging.getLogger().addHandler(log_handler)
     log = logging.getLogger('main')
     log.info("System Started")
-    h1 = state.event_handler.EventHandler()
-    h2 = state.event_handler.EventHandler()
-    h3 = state.event_handler.EventHandler()
-    h4 = state.event_handler.EventHandler()
+
     usb1_thread = threading.Thread(target=dhcp_thread, args=('usb0', h1))
     usb2_thread = threading.Thread(target=dhcp_thread, args=('usb1', h2))
     usb3_thread = threading.Thread(target=dhcp_thread, args=('usb2', h3))
@@ -87,4 +71,7 @@ if __name__ == "__main__":
     usb3_thread.start()
     usb4_thread.start()
     usb1_thread.join()
+    usb2_thread.join()
+    usb3_thread.join()
+    usb4_thread.join()
     log.info("Exiting")

@@ -1,4 +1,6 @@
 import state.leds as leds
+from threading import Thread
+from time import sleep
 
 
 STATE_IDLE = 0
@@ -11,13 +13,34 @@ ERROR_LIMIT = 4 * 30 # 30 Seconds
 
 
 class EventHandler:
-    def __init__(self, red = leds.RED, green = leds.GREEN, blue = leds.BLUE):
+    def __init__(self, red=leds.RED, green=leds.GREEN, blue=leds.BLUE):
         self.current = STATE_IDLE
         self.idle_count = 0
         self.set_led_for_state()
         self.red = red
         self.green = green
         self.blue = blue
+
+    @staticmethod
+    def next_startup_color(current):
+        if current == leds.RED:
+            return leds.GREEN
+        elif current == leds.GREEN:
+            return leds.BLUE
+        else:
+            return leds.RED
+
+    def startup_indicator(self):
+        leds.turn_all_off()
+        led_color = leds.RED
+        count = 0
+        while self.current == STATE_IDLE and count < 10:
+            leds.turn_on(led_color)
+            leds.turn_on(leds.RED)
+            led_color = EventHandler.next_startup_color(led_color)
+            sleep(0.25)
+        if self.current == STATE_IDLE:
+            leds.turn_all_off()
 
     def set_leds(self, red=leds.RED, green=leds.GREEN, blue=leds.BLUE):
         self.red = red
