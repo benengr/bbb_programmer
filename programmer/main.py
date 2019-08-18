@@ -53,7 +53,7 @@ if __name__ == "__main__":
     h1 = state.event_handler.EventHandler(7, 11, 13)
     h2 = state.event_handler.EventHandler(15, 29, 31)
     h3 = state.event_handler.EventHandler(12, 16, 18)
-    h4 = state.event_handler.EventHandler(37, 22, 32)
+    h4 = state.event_handler.EventHandler(22, 37, 32)
 
     fileSize = 1024 * 1024 * 128 # 128 MB, total of 1.5 GB
     log_handler = RotatingFileHandler('/home/pi/bbb_programing.log', maxBytes=fileSize, backupCount=5)
