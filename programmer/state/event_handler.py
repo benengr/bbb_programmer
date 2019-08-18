@@ -20,6 +20,9 @@ class EventHandler:
         self.red = red
         self.green = green
         self.blue = blue
+        leds.init_led(self.red)
+        leds.init_led(self.green)
+        leds.init_led(self.blue)
 
     def startup(self):
         t = Thread(target=self.startup_indicator)
@@ -39,10 +42,12 @@ class EventHandler:
         led_color = leds.RED
         count = 0
         while self.current == STATE_IDLE and count < 10:
+            print(f'Starup Loop {count}')
             leds.turn_on(led_color)
             leds.turn_on(leds.RED)
             led_color = EventHandler.next_startup_color(led_color)
             sleep(0.25)
+            count += 1
         if self.current == STATE_IDLE:
             leds.turn_all_off()
 
