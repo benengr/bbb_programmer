@@ -1,23 +1,21 @@
 import RPi.GPIO as GPIO
 
-OFF = 0
-RED = 37 
-BLUE = 40
-GREEN = 38
+OFF = 1
+ON = 0
 
-LEDS = [RED, BLUE, GREEN]
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
-for led in LEDS:
+def init_gpio():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setwarnings(False)
+
+
+def init_led(led):
     GPIO.setup(led, GPIO.OUT)
 
 
-def turn_all_off():
-    for led in LEDS:
-        GPIO.output(led, 1)
+def turn_off(led):
+    GPIO.output(led, OFF)
 
 
 def turn_on(led):
-    turn_all_off()
-    GPIO.output(led, 0)
+    GPIO.output(led, ON)
