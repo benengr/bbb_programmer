@@ -144,3 +144,7 @@ atlassian-ide-plugin.xml
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+#System Files
+system_files/intermediate
+system_files/output
